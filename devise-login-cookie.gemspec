@@ -4,7 +4,7 @@ require "devise-login-cookie/version"
 
 Gem::Specification.new do |s|
   s.name        = "devise-login-cookie"
-  s.version     = Devise::Login::Cookie::VERSION
+  s.version     = DeviseLoginCookie::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Paul Annesley"]
   s.email       = ["paul@annesley.cc"]
