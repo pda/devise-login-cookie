@@ -7,7 +7,6 @@ An extension for Devise which sets a signed login cookie upon authentication, ma
 Installation
 ------------
 
-    # TODO: publish gem so this works:
     gem install devise-login-cookie
 
     echo 'gem "devise-login-cookie"' >> Gemfile
