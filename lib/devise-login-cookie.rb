@@ -7,6 +7,12 @@ module DeviseLoginCookie
     end
   end
 
+  def delete_cookie(record, warden, options)
+    cookie_options = Rails.configuration.session_options.slice(:path, :domain, :secure)
+    warden.cookies.delete("login_#{options[:scope]}_token", cookie_options)
+  end
+  module_function :delete_cookie
+
   #########
   protected
 
@@ -33,3 +39,7 @@ module DeviseLoginCookie
 end
 
 Devise::Strategies::Authenticatable.send :include, DeviseLoginCookie
+
+Warden::Manager.before_logout do |record, warden, options|
+  DeviseLoginCookie::delete_cookie record, warden, options
+end

@@ -22,11 +22,14 @@ Information
 While Devise sets a cookie for Remember Me logins, standard logins are only tracked in the session.
 This extension sets a separate cookie upon authentication.
 
+For the `:user` scope, the cookie is named `login_user_token`, consistent with `remember_user_token` from rememberable.
+
+The cookie is deleted via the before_logout Warden hook.
+
 
 TODO
 ----
 
-* Cookie is being set on signin; need to delete on signout.
 * Cookie is write-only; create a Warden strategy to consume cookie for login.
 
 
