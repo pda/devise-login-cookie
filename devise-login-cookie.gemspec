@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  s.add_dependency("signed_json")
   s.add_runtime_dependency("devise", ["~> 1.1.0"])
 
 end

@@ -28,7 +28,6 @@ TODO
 
 * Cookie is being set on signin; need to delete on signout.
 * Cookie is write-only; create a Warden strategy to consume cookie for login.
-* Rails signed cookies use Marshal.dump; implement a simpler cross-platform HMAC signing.
 
 
 Meh
