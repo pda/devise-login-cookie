@@ -7,20 +7,20 @@ module DeviseLoginCookie
     end
   end
 
-  def delete_cookie(record, warden, options)
-    cookie_options = Rails.configuration.session_options.slice(:path, :domain, :secure)
+  def self.delete_cookie(record, warden, options)
     warden.cookies.delete("login_#{options[:scope]}_token", cookie_options)
   end
-  module_function :delete_cookie
 
   #########
   protected
 
+  def cookie_options
+    Rails.configuration.session_options.slice(:path, :domain, :secure, :httponly)
+  end
+
   def cookie_values(resource)
     value = sign [ resource.id, Time.now.to_i ]
-    options = Rails.configuration.session_options.slice(:path, :domain, :secure)
-    options.merge! :value => value
-    options
+    cookie_options.merge :value => value
   end
 
   def succeeded?
