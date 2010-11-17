@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency("signed_json")
-  s.add_runtime_dependency("devise", ["~> 1.1.0"])
+  s.add_runtime_dependency("devise", ["~> 1.1"])
 
 end
