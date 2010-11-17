@@ -1,45 +1,55 @@
 module DeviseLoginCookie
 
-  def success!(resource)
-    super
-    if succeeded?
-      cookies["login_#{scope}_token"] = cookie_values(resource)
+  class Cookie
+
+    def initialize(warden, scope)
+      @scope = scope
+      @warden = warden
     end
+
+    def set(user)
+      require 'ruby-debug'; debugger
+      cookies[cookie_name] = cookie_options.merge(:value => cookie_value(user))
+    end
+
+    def unset
+      cookies.delete cookie_name, cookie_options
+    end
+
+    private
+
+    def cookies
+      # .cookies provided by Devise in warden_compat.rb
+      # Roughly equivalent to: ActionDispatch::Request.new(env).cookie_jar
+      @warden.cookies
+    end
+
+    def cookie_name
+      "login_#{@scope}_token"
+    end
+
+    def cookie_value(user)
+      sign [ user.id, Time.now.to_i ]
+    end
+
+    def cookie_options
+      Rails.configuration.session_options.slice(:path, :domain, :secure, :httponly)
+    end
+
+    def sign(input)
+      require 'signed_json'
+      signer = SignedJson::Signer.new(Rails.configuration.secret_token)
+      signer.encode input
+    end
+
   end
 
-  def self.delete_cookie(record, warden, options)
-    warden.cookies.delete("login_#{options[:scope]}_token", cookie_options)
+  Warden::Manager.after_set_user do |user, warden, options|
+    Cookie.new(warden, options[:scope]).set(user)
   end
 
-  #########
-  protected
-
-  def cookie_options
-    Rails.configuration.session_options.slice(:path, :domain, :secure, :httponly)
+  Warden::Manager.before_logout do |user, warden, options|
+    Cookie.new(warden, options[:scope]).unset
   end
 
-  def cookie_values(resource)
-    value = sign [ resource.id, Time.now.to_i ]
-    cookie_options.merge :value => value
-  end
-
-  def succeeded?
-    @result == :success
-  end
-
-  #######
-  private
-
-  def sign(input)
-    require 'signed_json'
-    signer = SignedJson::Signer.new(Rails.configuration.secret_token)
-    signer.encode input
-  end
-
-end
-
-Devise::Strategies::Authenticatable.send :include, DeviseLoginCookie
-
-Warden::Manager.before_logout do |record, warden, options|
-  DeviseLoginCookie::delete_cookie record, warden, options
 end
