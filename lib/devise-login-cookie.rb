@@ -8,7 +8,6 @@ module DeviseLoginCookie
     end
 
     def set(user)
-      require 'ruby-debug'; debugger
       cookies[cookie_name] = cookie_options.merge(:value => cookie_value(user))
     end
 
