@@ -2,9 +2,11 @@ module DeviseLoginCookie
 
   class Cookie
 
-    def initialize(warden, scope)
+    attr_reader :cookies
+
+    def initialize(cookies, scope)
+      @cookies = cookies
       @scope = scope
-      @warden = warden
     end
 
     def set(user)
@@ -16,12 +18,6 @@ module DeviseLoginCookie
     end
 
     private
-
-    def cookies
-      # .cookies provided by Devise in warden_compat.rb
-      # Roughly equivalent to: ActionDispatch::Request.new(env).cookie_jar
-      @warden.cookies
-    end
 
     def cookie_name
       "login_#{@scope}_token"
