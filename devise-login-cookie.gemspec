@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "devise-login-cookie/version"
+require "devise_login_cookie/version"
 
 Gem::Specification.new do |s|
   s.name        = "devise-login-cookie"
