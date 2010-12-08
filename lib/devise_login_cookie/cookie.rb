@@ -42,9 +42,9 @@ module DeviseLoginCookie
       @cookies[cookie_name].present?
     end
 
-    # Whether the cookie was set before the given Time
-    def set_before?(time)
-      created_at && created_at < time
+    # Whether the cookie was set since the given Time
+    def set_since?(time)
+      created_at && created_at >= time
     end
 
     private

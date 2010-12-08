@@ -23,7 +23,7 @@ module DeviseLoginCookie
       describe "Cookie instance" do
         it { should_not be_present }
         it { should_not be_valid }
-        it { should_not be_set_before(Time.at(0)) }
+        it { should_not be_set_since(Time.at(0)) }
       end
 
       describe "#id" do
@@ -51,7 +51,7 @@ module DeviseLoginCookie
       describe "Cookie instance" do
         it { should be_present }
         it { should_not be_valid }
-        it { should_not be_set_before(Time.at(0)) }
+        it { should_not be_set_since(Time.at(0)) }
       end
 
       describe "#id" do
@@ -81,8 +81,9 @@ module DeviseLoginCookie
       describe "Cookie instance" do
         it { should be_present }
         it { should be_valid }
-        it { should_not be_set_before(now) }
-        it { should be_set_before(now + 1) }
+        it { should_not be_set_since(now + 1) }
+        it { should be_set_since(now) }
+        it { should be_set_since(now - 1) }
       end
 
       describe "#id" do

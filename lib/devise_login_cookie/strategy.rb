@@ -29,7 +29,7 @@ module DeviseLoginCookie
     end
 
     def fresh?(cookie)
-      cookie.set_before?(Time.now - COOKIE_TTL)
+      cookie.set_since?(Time.now - COOKIE_TTL)
     end
 
     def resource
