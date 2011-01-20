@@ -13,7 +13,7 @@ module DeviseLoginCookie
     end
 
     def authenticate!
-      if fresh?(cookie) && validate(resource)
+      if fresh?(cookie) && resource && validate(resource)
         success!(resource)
       else
         pass
@@ -33,7 +33,8 @@ module DeviseLoginCookie
     end
 
     def resource
-      @resource ||= mapping.to.find(cookie.id)
+      # returns nil when user is missing.
+      @resource ||= mapping.to.where(:id => cookie.id)
     end
 
     def pass
