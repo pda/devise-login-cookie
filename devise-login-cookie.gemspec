@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency("signed_json", ["~> 0.0.3"])
-  s.add_dependency("devise", ["~> 1.1"])
+  s.add_dependency("devise", ["~> 2.1"])
 
   s.add_development_dependency("rspec", ["~> 2.2"])
   s.add_development_dependency("rails") # devise requires this
