@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency("devise", ["~> 1.1"])
 
   s.add_development_dependency("rspec", ["~> 2.2"])
-  s.add_development_dependency("rails") # devise requires this
+  s.add_development_dependency("rails", [">= 3"]) # devise requires this
   s.add_development_dependency("rake")
 
 end
