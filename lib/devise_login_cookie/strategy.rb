@@ -1,3 +1,5 @@
+require 'devise'
+
 module DeviseLoginCookie
 
   class Strategy < ::Devise::Strategies::Authenticatable
